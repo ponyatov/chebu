@@ -1,11 +1,11 @@
-# ![logo](doc/logo.png) `chebu`
-## электронный журнал "Чебуратор"
+## @file
+## @brief meta: электронный журнал "Чебуратор"
 
-(c) Dmitry Ponyatov <<dponyatov@gmail.com>> 2020 All rights reserved
+from metaL import *
 
-github: https://github.com/ponyatov/chebu/
-
-
+p = Project(
+    title='''электронный журнал "Чебуратор"''',
+    about='''
 ## журнал хакспейса "Контур"
 
 * обзоры студенческих работ
@@ -39,6 +39,7 @@ github: https://github.com/ponyatov/chebu/
 
 <hr>
 при подготовке данных материалов ни один Microsoft не пострадал
+''') \
+    | TeX()
 
-<hr>
-powered with [metaL](https://github.com/ponyatov/metaLgen)
+p.sync()

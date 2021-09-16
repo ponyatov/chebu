@@ -1,0 +1,10 @@
+*~
+*.swp
+*.log
+
+/docs/
+/chebu/
+
+/__pycache__/
+
+!.gitignore
