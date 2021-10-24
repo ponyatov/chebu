@@ -1,0 +1,16 @@
+digraph {
+    rankdir=LR;
+    margin=0;
+    plan -> soft -> OpenSource -> Linux;
+    soft -> git;
+    group -> git;
+    soft -> make;
+    OpenSource -> KiCAD;
+    OpenSource -> FreeCAD;
+    soft -> DB -> SQL -> Django;
+    soft -> Web -> Django;
+    soft -> Python -> Django -> HTML -> JS ;
+    soft -> C -> Cpp -> Rust -> FW ;
+    plan -> hard -> electronix -> analog -> digital -> VHDL -> FW;
+    plan -> group;
+}

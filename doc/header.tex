@@ -4,16 +4,27 @@
 \usepackage[paperwidth=118.8mm,paperheight=68.2mm,margin=2mm]{geometry}
 %% font setup for screen reading
 \renewcommand{\familydefault}{\sfdefault}\normalfont
+%% xcolor fixes
+\usepackage{xcolor}
+\definecolor{red}{rgb}{0.7,0,0}
+\definecolor{green}{rgb}{0,0.4,0}
+\definecolor{blue}{rgb}{0,0,0.5}
+\definecolor{cyan}{rgb}{0,0.5,0.5}
+\definecolor{magenta}{rgb}{0.5,0,0.5}
 %% hyperlinks pdf style
-\usepackage[unicode,colorlinks=true]{hyperref}
+\usepackage[unicode,colorlinks=true,
+    linkcolor=blue,urlcolor=magenta
+]{hyperref}
 %% fix heading styles for tiny paper
 \usepackage{titlesec}
 \titleformat{\chapter}{\Large\bfseries}{\thechapter.}{1em}{}
 \titleformat{\section}{\large\bfseries}{\thesection.}{1em}{}
-%% fix first blank page
-%% https://tex.stackexchange.com/questions/140168/how-to-remove-a-blank-page-before-the-title-page
-\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
-\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+%% remove TOC header
+\makeatletter\renewcommand\tableofcontents{\@starttoc{toc}}\makeatother
+% %% fix first blank page
+% %% https://tex.stackexchange.com/questions/140168/how-to-remove-a-blank-page-before-the-title-page
+% \usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+% \AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 % Cyrillization
 \usepackage[T1,T2A]{fontenc}
@@ -21,6 +32,19 @@
 % %% \usepackage[cp1251]{inputenc}
 \usepackage[english,russian]{babel}
 % \usepackage{indentfirst}
+
+% tune book document class
+% https://tex.stackexchange.com/a/49175/143671
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+
+% graphics
+\usepackage[pdftex]{graphicx}
+\newcommand{\fig}[2]{\noindent\includegraphics[#2]{#1}}
+\newcommand{\figc}[2]{\noindent\begin{center}\includegraphics[#2]{#1}\end{center}}
+\newcommand{\figt}[3]{\bigskip\noindent\includegraphics[#3]{#2}\textbf{#1}\bigskip}
+\usepackage{wrapfig}
 
 % relative sectioning
 \usepackage{ifthen}
@@ -45,10 +69,16 @@
 
 % misc
 \newcommand{\email}[1]{$<$\href{mailto:#1}{#1}$>$}
-\renewcommand{\emph}[1]{\textcolor{red}{#1}}
+\newcommand{\ozon}[1]{\href{#1}{ozon}}
+\renewcommand{\emph}[1]{\textcolor{blue}{#1}}
 \newcommand{\term}[1]{\textcolor{green}{#1}}
 \newcommand{\termdef}[2]{\textcolor{green}{#1}\index{#2}}
 \newcommand{\note}[1]{\,\footnote{\ #1}}
+\newcommand{\bibfig}[1]{\fig{bib/#1.png}{height=.32\textheight}}
+
+% smileys
+% \usepackage{tikzsymbols}
+\usepackage{marvosym}
 
 % [nosep] option in lists/enums
 \usepackage{enumitem}
@@ -57,9 +87,51 @@
 % % indexing
 % \usepackage{makeidx}\makeindex
 
+% computer
+\newcommand{\os}{OpenSource}
+\newcommand{\prog}[1]{\texttt{#1}}
+\newcommand{\youtube}{{\tiny YouTube}}
+\newcommand{\vbx}{\prog{VirtualBox}}
+%% OSes
+\newcommand{\win}{$\mathbf{Windows}$}
+\newcommand{\lin}{$\mathbf{Linux}$}
+\newcommand{\mac}{$\mathbf{MacOS}$}
+%% languages
+\newcommand{\py}{$\mathbf{Python}$}
+\newcommand{\dja}{$\mathbf{Django}$}
+% \usepackage{rotating}
+\usepackage{amsmath}
+\newcommand{\rot}[1]{%
+  \text{\rotatebox[origin=c]{-90}{#1}}%
+}
+\newcommand{\cb}{$\mathbf{C_{iso}}$}
+\newcommand{\cpp}{$\mathbf{C^+_+}$}
+\newcommand{\rust}{$\mathbf{Rust}$}
+\newcommand{\js}{$\mathbf{JS}$}
+\newcommand{\wasm}{$\mathbf{WASM}$}
+\newcommand{\java}{$\mathbf{Java}$}
+\newcommand{\cs}{$\mathbf{C\#}$}
+\newcommand{\net}{$\mathbf{.NET}$}
+\newcommand{\F}{\texttt{Форт}}
 
+%% programs
+\newcommand{\ki}{$\textmf{KiCAD}$}
+\newcommand{\free}{$\textmf{FreeCAD}$}
+
+%% software menu & keys
+\usepackage[os=win]{menukeys}
+\usepackage{amssymb} % windows key
+\newcommand{\winstart}{$\boxplus$}
+% \newcommand{\winr}{\keys{\winstart+R}}
+% \newcommand{\lms}{$\lhd$}
+% \newcommand{\dblms}{$\lhd\lhd$}
+% \newcommand{\rms}{$\rhd$}
+% \newcommand{\checkbox}{$\boxtimes$}
+% \newcommand{\uncheckbox}{$\square$}
 
 %% COMMON PART FOR PROJECT
 
+\usepackage{titling}
 \title{\ \\журнал любителей электроники\\и технического творчества\\\vspace{3mm}\textbf{\LARGE Чебуратор}}
-\author{\copyright\ \email{dponyatov@gmail.com} \& хакспейс "Контур"}
+\author{\copyright\ \href{https://vk.com/ssau_kontur}{клуб любителей электроники ``Контур''}}
+\date{\today}

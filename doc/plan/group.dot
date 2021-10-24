@@ -1,0 +1,12 @@
+digraph {
+    rankdir=LR;
+    margin=0;
+    group -> offroad -> tourism;
+    group -> music -> soundhw;
+    hard -> analog -> soundhw;
+    hard -> digital -> DSP -> soundhw;
+    group -> papers -> LaTeX;
+    group -> presentation;
+    OpenSource -> LaTeX;
+    {hard;group;rank=same;}
+}

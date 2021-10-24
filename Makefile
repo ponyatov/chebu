@@ -30,16 +30,27 @@ LATEX   = pdflatex -halt-on-error --output-dir=$(TMP)
 # \ src
 Y   += $(MODULE).metaL.py metaL.py
 S   += $(Y)
-TEX  = doc/$(MONTH).tex doc/header.tex doc/about.tex doc/bib.tex
-S   += $(TEX)
+TEX  = doc/$(MONTH).tex
+TEX += $(shell find doc -type f -regex ".+.tex$$"|grep -v doc/$(MONTH).tex)
+FIG += $(shell find doc -type f -regex ".+.png$$")
+FIG += doc/plan/plan.pdf doc/plan/group.pdf
+S   += $(TEX) $(FIG)
 # / src
 
 # \ all
+PDF = $(MODULE)_$(MONTH)_$(NOW).pdf
 
 .PHONY: all
-all: tmp/$(MODULE)_$(MONTH).pdf
+all: pdf
 
-tmp/$(MODULE)_$(MONTH).pdf: $(TEX) $(IMG)
+pdf: tmp/$(PDF)
+tmp/$(PDF): tmp/$(MONTH).pdf
+	gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/printer \
+		-dNOPAUSE -dQUIET -dBATCH \
+		-sOutputFile=$@ $<
+	ls -la tmp/*.pdf
+tmp/$(MONTH).pdf: $(TEX) $(FIG)
+	echo "\#$(MONTH)" > tmp/month.tex
 	cd doc ; $(LATEX) $(MONTH) && $(LATEX) $(MONTH)
 
 .PHONY: meta
@@ -55,6 +66,9 @@ tmp/format_py: $(Y)
 	$(PEP) --ignore=E26,E302,E305,E401,E402,E701,E702 --in-place $?
 	touch $@
 # / all
+
+doc/%.pdf: doc/%.dot
+	dot -Tpdf -o $@ $<
 
 # \ doc
 
